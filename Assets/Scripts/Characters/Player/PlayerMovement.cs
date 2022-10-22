@@ -45,8 +45,16 @@ namespace Player
         }
         void CheckHandleInput()
         {
-            if (mobileInput) _moveDirection = _mainCamera.transform.forward * _uiJoystick.Vertical + _mainCamera.transform.right * _uiJoystick.Horizontal;
-            else _moveDirection = _mainCamera.transform.forward * Input.GetAxisRaw("Vertical") + _mainCamera.transform.right * Input.GetAxisRaw("Horizontal");
+            if (mobileInput)
+            {
+                _moveDirection = _mainCamera.transform.forward * _uiJoystick.Vertical + _mainCamera.transform.right * _uiJoystick.Horizontal;
+            }
+            else
+            {
+                _moveDirection = _mainCamera.transform.forward * Input.GetAxisRaw("Vertical") + _mainCamera.transform.right * Input.GetAxisRaw("Horizontal");
+
+                if (Input.GetKeyDown(KeyCode.Space)) Jump();
+            }
 
             _moveDirection.y = 0;
             _moveDirection.Normalize();
@@ -84,6 +92,18 @@ namespace Player
             {
                 _currentMoveSpeed = _baseMoveSpeed;
             }
+        }
+
+        public bool IsGrounded()
+        {
+            Debug.DrawRay(transform.position + (Vector3.up * 0.2f), Vector3.down * 0.3f, Color.red);
+            return Physics.Raycast(transform.position + (Vector3.up * 0.2f), Vector3.down, 0.3f, ~6);
+        }
+        public void Jump()
+        {
+            if (IsGrounded() == false) return;
+
+            _rigidBody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
     }
 }

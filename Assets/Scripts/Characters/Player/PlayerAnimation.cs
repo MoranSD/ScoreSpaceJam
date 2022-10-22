@@ -22,6 +22,8 @@ namespace Player
         private void Update()
         {
             _animator.SetBool("isRun", _playerMovement.moveDirection != Vector3.zero);
+
+            _animator.speed = _playerMovement.IsGrounded() ? 1 : 0;
         }
 
         protected override void OnPlayerTakeItem(ItemType type)
