@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Things;
 
@@ -18,6 +16,6 @@ namespace Player
             PlayerInventory.onDropItem -= OnPlayerDropItem;
         }
         protected abstract void OnPlayerTakeItem(ItemType type);
-        protected abstract void OnPlayerDropItem(ItemType type);
+        protected virtual void OnPlayerDropItem(ItemType type) { }
     }
 }
