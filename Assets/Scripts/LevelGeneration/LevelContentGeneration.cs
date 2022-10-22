@@ -13,6 +13,7 @@ namespace LevelGeneration
         [SerializeField, Range(0, 100)] float _enemySpawnChance;
         [Header("Content prefabs")]
         [SerializeField] Item[] _items;
+        [SerializeField] GameObject _zombiePrefab;
 
         LevelBlockStagesGeneration _blocksGeneration;
         float _currentSpawnTime;
@@ -32,17 +33,17 @@ namespace LevelGeneration
                 _currentSpawnTime = _spawnRate;
 
                 float enemySpawnChane = Random.Range(0.1f, 100f);
+                float nextContentSpawnHeight = _blocksGeneration.startHeight + (_blocksGeneration.heightStep * _blocksGeneration.platformStageCount);
+                Vector3 nextContentPosition = new Vector3(Random.Range(_spawnRadious * -1, _spawnRadious), nextContentSpawnHeight, Random.Range(_spawnRadious * -1, _spawnRadious));
 
-                if(enemySpawnChane <= _enemySpawnChance)
+                if (enemySpawnChane <= _enemySpawnChance)
                 {
-                    //spawn zombie
+                    Instantiate(_zombiePrefab, nextContentPosition, Quaternion.identity);
                 }
                 else
                 {
-                    float nextItemSpawnHeight = _blocksGeneration.startHeight + (_blocksGeneration.heightStep * _blocksGeneration.platformStageCount);
-                    Vector3 nextItemPosition = new Vector3(Random.Range(_spawnRadious * -1, _spawnRadious), nextItemSpawnHeight, Random.Range(_spawnRadious * -1, _spawnRadious));
                     Item item = Instantiate(_items[Random.Range(0, _items.Length)]);
-                    item.transform.position = nextItemPosition;
+                    item.transform.position = nextContentPosition;
                 }
             }
         }
