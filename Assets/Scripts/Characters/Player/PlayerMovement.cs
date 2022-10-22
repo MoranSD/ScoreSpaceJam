@@ -9,16 +9,22 @@ namespace Player
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : PlayerInventoryItemLocator
     {
-        public bool mobileInput;
         public Vector3 moveDirection => _moveDirection;
 
+        [Header("Input settings")]
+        public bool mobileInput;
         [SerializeField] Joystick _uiJoystick;
+
+        [Header("move paramethers")]
         [SerializeField] float _baseMoveSpeed;
         [SerializeField] float _speedBoostMoveSpeed;
-        float _currentMoveSpeed;
+        [SerializeField] float _jumpForce;
 
         Vector3 _moveDirection;
+        float _currentMoveSpeed;
+
         Camera _mainCamera;
+
         Rigidbody _rigidBody;
 
         private void Start()
