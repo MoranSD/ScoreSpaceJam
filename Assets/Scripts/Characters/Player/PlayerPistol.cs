@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Player.Inventory;
 using Things;
 
-namespace Player
+namespace Player.ItemLogic
 {
     public class PlayerPistol : PlayerInventoryItemLocator
     {

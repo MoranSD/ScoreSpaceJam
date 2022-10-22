@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Things;
 
-namespace Player
+namespace Player.Inventory
 {
     public class PlayerInventory : MonoBehaviour
     {
@@ -32,8 +32,6 @@ namespace Player
             if (other.CompareTag("Item")) 
             {
                 Item item = other.GetComponent<Item>();
-
-                Debug.Log("Pick up item: " + item.type.ToString());
 
                 onTakeItem?.Invoke(item.type);
 

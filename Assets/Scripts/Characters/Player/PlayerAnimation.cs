@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Player.Inventory;
 using Things;
 
 namespace Player

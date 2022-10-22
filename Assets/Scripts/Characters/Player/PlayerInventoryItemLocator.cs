@@ -1,7 +1,7 @@
 using UnityEngine;
 using Things;
 
-namespace Player
+namespace Player.Inventory
 {
     public abstract class PlayerInventoryItemLocator : MonoBehaviour
     {

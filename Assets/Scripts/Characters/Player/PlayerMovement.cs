@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Player.Inventory;
 using Things;
 
 namespace Player
@@ -94,11 +92,7 @@ namespace Player
             }
         }
 
-        public bool IsGrounded()
-        {
-            Debug.DrawRay(transform.position + (Vector3.up * 0.2f), Vector3.down * 0.3f, Color.red);
-            return Physics.Raycast(transform.position + (Vector3.up * 0.2f), Vector3.down, 0.3f, ~6);
-        }
+        public bool IsGrounded() => UnityEngine.Physics.Raycast(transform.position + (Vector3.up * 0.2f), Vector3.down, 0.3f, ~6);
         public void Jump()
         {
             if (IsGrounded() == false) return;

@@ -1,4 +1,4 @@
-using Player;
+using Player.Inventory;
 using Things;
 
 namespace UI

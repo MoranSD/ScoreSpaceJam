@@ -1130,6 +1130,7 @@ GameObject:
   - component: {fileID: 6478566854715644993}
   - component: {fileID: 2003484689016146507}
   - component: {fileID: 1148716963768097364}
+  - component: {fileID: 6478566854730456569}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1167,7 +1168,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &6478566854715644997
 CapsuleCollider:
@@ -1197,8 +1198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mobileInput: 0
   _uiJoystick: {fileID: 0}
-  _baseMoveSpeed: 4
-  _speedBoostMoveSpeed: 8
+  _baseMoveSpeed: 3
+  _speedBoostMoveSpeed: 5
   _jumpForce: 5
 --- !u!114 &6478566854715644993
 MonoBehaviour:
@@ -1235,6 +1236,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1facc362e72aa04e847226cf659db79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6478566854730456569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6478566854715645002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9132ecc36c73ce2498fc6d62f0ae32f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6478566854973934852
