@@ -7,7 +7,6 @@ namespace Things
         Coin,
         Pistol,
         SpeedBoost,
-        Immortality,
     }
     public class Item : MonoBehaviour
     {
