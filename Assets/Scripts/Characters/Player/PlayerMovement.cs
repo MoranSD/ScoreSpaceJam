@@ -2,17 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Things;
 
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : PlayerInventoryItemLocator
     {
         public bool mobileInput;
         public Vector3 moveDirection => _moveDirection;
 
         [SerializeField] Joystick _uiJoystick;
-        [SerializeField] float _moveSpeed;
+        [SerializeField] float _baseMoveSpeed;
+        [SerializeField] float _speedBoostMoveSpeed;
+        float _currentMoveSpeed;
 
         Vector3 _moveDirection;
         Camera _mainCamera;
@@ -22,6 +25,7 @@ namespace Player
         {
             _mainCamera = Camera.main;
             _rigidBody = GetComponent<Rigidbody>();
+            _currentMoveSpeed = _baseMoveSpeed;
         }
 
         private void Update()
@@ -45,7 +49,7 @@ namespace Player
         {
             Vector3 currentPlayerHorizontalVelocity = GetPlayerHorizontalVelocity();
 
-            _rigidBody.AddForce(_moveDirection * _moveSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
+            _rigidBody.AddForce(_moveDirection * _currentMoveSpeed - currentPlayerHorizontalVelocity, ForceMode.VelocityChange);
         }
         void Rotate()
         {
@@ -59,6 +63,21 @@ namespace Player
             currentPlayerVelocity.y = 0;
 
             return currentPlayerVelocity;
+        }
+
+        protected override void OnPlayerTakeItem(ItemType type)
+        {
+            if (type == ItemType.SpeedBoost)
+            {
+                _currentMoveSpeed = _speedBoostMoveSpeed;
+            }
+        }
+        protected override void OnPlayerDropItem(ItemType type)
+        {
+            if (type == ItemType.SpeedBoost)
+            {
+                _currentMoveSpeed = _baseMoveSpeed;
+            }
         }
     }
 }

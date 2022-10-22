@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Things;
 
 namespace Player
 {
     [RequireComponent(typeof(Animator))]
-    public class PlayerAnimation : MonoBehaviour
+    public class PlayerAnimation : PlayerInventoryItemLocator
     {
         [SerializeField] PlayerMovement _playerMovement;
 
@@ -15,18 +16,7 @@ namespace Player
         {
             _animator = GetComponent<Animator>();
             _animator.SetFloat("isHaveGun", 0);
-        }
-
-        private void OnEnable()
-        {
-            PlayerInventory.onPickUpPistol += OnTakePistol;
-            PlayerInventory.onDropPistol += OnDropPistol;
-        }
-
-        private void OnDisable()
-        {
-            PlayerInventory.onPickUpPistol -= OnTakePistol;
-            PlayerInventory.onDropPistol -= OnDropPistol;
+            _animator.SetFloat("moveSpeed", 1);
         }
 
         private void Update()
@@ -34,7 +24,29 @@ namespace Player
             _animator.SetBool("isRun", _playerMovement.moveDirection != Vector3.zero);
         }
 
-        void OnTakePistol() => _animator.SetFloat("isHaveGun", 1);
-        void OnDropPistol() => _animator.SetFloat("isHaveGun", 0);
+        protected override void OnPlayerTakeItem(ItemType type)
+        {
+            switch (type)
+            {
+                case ItemType.Pistol:
+                        _animator.SetFloat("isHaveGun", 1);
+                        break;
+                case ItemType.SpeedBoost:
+                    _animator.SetFloat("moveSpeed", 2);
+                    break;
+            }
+        }
+        protected override void OnPlayerDropItem(ItemType type)
+        {
+            switch (type)
+            {
+                case ItemType.Pistol:
+                    _animator.SetFloat("isHaveGun", 0);
+                    break;
+                case ItemType.SpeedBoost:
+                    _animator.SetFloat("moveSpeed", 1);
+                    break;
+            }
+        }
     }
 }

@@ -7,27 +7,24 @@ namespace Player
 {
     public class PlayerInventory : MonoBehaviour
     {
-        public static event System.Action onPickUpCoin;
-        public static event System.Action onPickUpPistol;
-        public static event System.Action onDropPistol;
+        public static event System.Action<ItemType> onTakeItem;
+        public static event System.Action<ItemType> onDropItem;
 
-        public int coinsCount { get; private set; }
-        public bool isHavePistol { get; private set; }
-
-        [SerializeField] float _pistolTimeInHands;
-        float _currentPistolTime;
+        List<ItemHold> _items = new List<ItemHold>();
 
         private void Update()
         {
-            if (isHavePistol == false) return;
+            if (_items.Count == 0) return;
 
-            _currentPistolTime -= Time.deltaTime;
-
-            if(_currentPistolTime <= 0)
+            for (int i = _items.Count - 1; i >= 0; i--)
             {
-                isHavePistol = false;
-                _currentPistolTime = _pistolTimeInHands;
-                onDropPistol?.Invoke();
+                _items[i].currentActionTime -= Time.deltaTime;
+
+                if (_items[i].currentActionTime <= 0)
+                {
+                    onDropItem?.Invoke(_items[i].type);
+                    _items.RemoveAt(i);
+                }
             }
         }
 
@@ -39,21 +36,24 @@ namespace Player
 
                 Debug.Log("Pick up item: " + item.type.ToString());
 
-                switch (item.type)
+                onTakeItem?.Invoke(item.type);
+
+                if (item.isNeedHold)
                 {
-                    case ItemType.Coin:
-                        coinsCount++;
-                        onPickUpCoin?.Invoke();
-                        break;
-                    case ItemType.Pistol:
-                        _currentPistolTime = _pistolTimeInHands;
-                        isHavePistol = true;
-                        onPickUpPistol?.Invoke();
-                        break;
+                    ItemHold newItem = new ItemHold();
+                    newItem.type = item.type;
+                    newItem.currentActionTime = item.actionTime;
+
+                    _items.Add(newItem);
                 }
 
                 Destroy(other.gameObject);
             }
         }
+    }
+    public class ItemHold
+    {
+        public ItemType type;
+        public float currentActionTime;
     }
 }

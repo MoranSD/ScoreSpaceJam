@@ -8,10 +8,14 @@ namespace Things
     {
         Coin,
         Pistol,
+        SpeedBoost,
+        Immortality,
     }
     public class Item : MonoBehaviour
     {
-        [field:SerializeField] public ItemType type { get; private set; }
+        [field: SerializeField] public ItemType type { get; private set; }
+        [field: SerializeField] public float actionTime { get; private set; }
+        [field: SerializeField] public bool isNeedHold { get; private set; }
 
         [SerializeField] float _turnSpeed;
 
