@@ -47,11 +47,25 @@ namespace Player.Inventory
 
                 if (item.isNeedHold)
                 {
-                    ItemHold newItem = new ItemHold();
-                    newItem.type = item.type;
-                    newItem.currentActionTime = item.actionTime;
+                    bool isAlreadyHaveThisItem = false;
+                    for (int i = 0; i < _items.Count; i++)
+                    {
+                        if(_items[i].type == item.type)
+                        {
+                            isAlreadyHaveThisItem = true;
+                            _items[i].currentActionTime = item.actionTime;
+                            break;
+                        }
+                    }
 
-                    _items.Add(newItem);
+                    if(isAlreadyHaveThisItem == false)
+                    {
+                        ItemHold newItem = new ItemHold();
+                        newItem.type = item.type;
+                        newItem.currentActionTime = item.actionTime;
+
+                        _items.Add(newItem);
+                    }
                 }
 
                 Destroy(other.gameObject);
