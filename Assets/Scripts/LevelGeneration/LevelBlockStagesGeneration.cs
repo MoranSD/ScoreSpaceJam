@@ -6,6 +6,8 @@ namespace LevelGeneration
 {
     public class LevelBlockStagesGeneration : MonoBehaviour
     {
+        public static event System.Action onEndStage;
+
         [field: SerializeField] public float startHeight { get; private set; }
         [field: SerializeField] public float heightStep { get; private set; }
         public int platformStageCount { get; private set; }
@@ -59,6 +61,7 @@ namespace LevelGeneration
                     _oldPlatformStages.RemoveAt(0);
                 }
 
+                onEndStage?.Invoke();
                 CreateNewPlatformStage();
                 return;
             }

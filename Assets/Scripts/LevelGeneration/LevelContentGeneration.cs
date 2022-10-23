@@ -32,10 +32,18 @@ namespace LevelGeneration
             {
                 _currentSpawnTime = _spawnRate;
 
-                float enemySpawnChane = Random.Range(0.1f, 100f);
-                float nextContentSpawnHeight = _blocksGeneration.startHeight + (_blocksGeneration.heightStep * _blocksGeneration.platformStageCount);
-                Vector3 nextContentPosition = new Vector3(Random.Range(_spawnRadious * -1, _spawnRadious), nextContentSpawnHeight, Random.Range(_spawnRadious * -1, _spawnRadious));
+                Vector3 nextContentPosition;
 
+                while (true)
+                {
+                    float nextContentSpawnHeight = _blocksGeneration.startHeight + (_blocksGeneration.heightStep * _blocksGeneration.platformStageCount);
+                    nextContentPosition = new Vector3(Random.Range(_spawnRadious * -1, _spawnRadious), nextContentSpawnHeight, Random.Range(_spawnRadious * -1, _spawnRadious));
+
+                    if (Physics.CheckSphere(nextContentPosition + Vector3.up * 0.5f, 0.1f)) continue;
+                    else break;
+                }
+
+                float enemySpawnChane = Random.Range(0.1f, 100f);
                 if (enemySpawnChane <= _enemySpawnChance)
                 {
                     Instantiate(_zombiePrefab, nextContentPosition, Quaternion.identity);
