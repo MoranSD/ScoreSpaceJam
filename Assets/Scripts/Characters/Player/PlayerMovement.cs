@@ -7,11 +7,9 @@ namespace Player
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : PlayerInventoryItemLocator
     {
-        public Vector3 moveDirection => _moveDirection;
+        public static event System.Action onJump;
 
-        [Header("Input settings")]
-        public bool mobileInput;
-        [SerializeField] Joystick _uiJoystick;
+        public Vector3 moveDirection => _moveDirection;
 
         [Header("move paramethers")]
         [SerializeField] float _baseMoveSpeed;
@@ -34,28 +32,23 @@ namespace Player
 
         private void Update()
         {
+            if (PlayerDeath.isDead) return;
             CheckHandleInput();
         }
         private void FixedUpdate()
         {
+            if (PlayerDeath.isDead) return;
             Move();
             Rotate();
         }
         void CheckHandleInput()
         {
-            if (mobileInput)
-            {
-                _moveDirection = _mainCamera.transform.forward * _uiJoystick.Vertical + _mainCamera.transform.right * _uiJoystick.Horizontal;
-            }
-            else
-            {
-                _moveDirection = _mainCamera.transform.forward * Input.GetAxisRaw("Vertical") + _mainCamera.transform.right * Input.GetAxisRaw("Horizontal");
-
-                if (Input.GetKeyDown(KeyCode.Space)) Jump();
-            }
-
+            _moveDirection = _mainCamera.transform.forward * Input.GetAxisRaw("Vertical") + _mainCamera.transform.right * Input.GetAxisRaw("Horizontal");
             _moveDirection.y = 0;
             _moveDirection.Normalize();
+
+            if (Input.GetKeyDown(KeyCode.Space)) Jump();
+
         }
         void Move()
         {
@@ -97,6 +90,7 @@ namespace Player
         {
             if (IsGrounded() == false) return;
 
+            onJump?.Invoke();
             _rigidBody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
     }

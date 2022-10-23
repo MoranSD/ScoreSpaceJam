@@ -2,7 +2,7 @@ using Player.Inventory;
 using LevelGeneration;
 using Things;
 
-namespace UI
+namespace GameUI
 {
     public class ScoreCounter : PlayerInventoryItemLocator
     {

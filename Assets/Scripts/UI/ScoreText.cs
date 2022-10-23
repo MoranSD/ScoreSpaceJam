@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace UI
+namespace GameUI
 {
     public class ScoreText : MonoBehaviour
     {
