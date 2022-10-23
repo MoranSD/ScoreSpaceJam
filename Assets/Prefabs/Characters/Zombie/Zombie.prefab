@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2322a588c677c834ba20753856541a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trigger: {fileID: 9176032505855852993}
   _moveSpeed: 3
   _idleTime: 1
 --- !u!114 &6094929866119963341
@@ -102,8 +103,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 6094929866119963339}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
+  m_Enabled: 0
+  m_Radius: 0.51
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.875, z: 0}

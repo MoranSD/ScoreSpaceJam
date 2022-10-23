@@ -9,6 +9,7 @@ namespace Zombie
     {
         public Vector3 moveDirection { get; private set; }
 
+        [SerializeField] Collider _trigger;
         [SerializeField] float _moveSpeed;
         [SerializeField] float _idleTime;
         float _currentIdleTime;
@@ -24,12 +25,15 @@ namespace Zombie
 
             _currentIdleTime = _idleTime;
             _rigidBody = GetComponent<Rigidbody>();
-            _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            _playerTransform = player.transform;
+            _isPlayerHaveGun = player.GetComponent<PlayerInventory>().IsHaveGun();
         }
         private void FixedUpdate()
         {
-            _idleTime -= Time.fixedDeltaTime;
-            if (_idleTime > 0) return;
+            _currentIdleTime -= Time.fixedDeltaTime;
+            if (_currentIdleTime > 0) return;
+            else _trigger.enabled = true;
 
             moveDirection = GetMoveDirection();
 

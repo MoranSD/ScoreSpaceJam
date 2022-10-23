@@ -11,6 +11,16 @@ namespace Player.Inventory
 
         List<ItemHold> _items = new List<ItemHold>();
 
+        public bool IsHaveGun()
+        {
+            for (int i = 0; i < _items.Count; i++)
+            {
+                if (_items[i].type == ItemType.Pistol) return true;
+            }
+
+            return false;
+        }
+
         private void Update()
         {
             if (_items.Count == 0) return;

@@ -593,6 +593,9 @@ MonoBehaviour:
   - {fileID: 1968262534545887894, guid: 351c9f79e3fde8b4ab7e02c8da7f9e16, type: 3}
   - {fileID: 824457033233819614, guid: 773cdcdeb1365c547a36a6da52aa500f, type: 3}
   - {fileID: 7892494885334305147, guid: 4bc572d230a768e418c48553f40185a6, type: 3}
+  - {fileID: 1968262534545887894, guid: 351c9f79e3fde8b4ab7e02c8da7f9e16, type: 3}
+  - {fileID: 1968262534545887894, guid: 351c9f79e3fde8b4ab7e02c8da7f9e16, type: 3}
+  - {fileID: 1968262534545887894, guid: 351c9f79e3fde8b4ab7e02c8da7f9e16, type: 3}
   _zombiePrefab: {fileID: 6094929866119963339, guid: 92a9216cba97bd447a68560ae054e644, type: 3}
 --- !u!1 &963194225
 GameObject:
