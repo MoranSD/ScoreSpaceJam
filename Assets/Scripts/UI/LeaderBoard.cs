@@ -10,14 +10,15 @@ namespace GameUI
     {
         [SerializeField] TextMeshProUGUI[] _leaders;
         [SerializeField] TextMeshProUGUI _playerId;
+
+        int _ourId;
         void StartSession(System.Action callBack)
         {
             LootLockerSDKManager.StartSession(GameManager.playerName, (response) => 
             {
                 if (response.success)
                 {
-                    Debug.Log("Seccess start session");
-                    _playerId.text = "Your id: " + response.player_id;
+                    _ourId = response.player_id;
                     callBack();
                 }
                 else
@@ -55,7 +56,16 @@ namespace GameUI
 
                     for (int i = 0; i < scores.Length; i++)
                     {
-                        string playerName = scores[i].player.name != "" ? scores[i].player.name : scores[i].player.id.ToString();
+                        string playerName;
+                        if(scores[i].player.name != "")
+                        {
+                            playerName = scores[i].player.name;
+                        }
+                        else
+                        {
+                            playerName = scores[i].player.id.ToString();
+                            if (scores[i].player.id == _ourId) _leaders[i].color = Color.green;
+                        }
                         _leaders[i].text = playerName + ": " + scores[i].score;
                     }
                     if(scores.Length < 5)
